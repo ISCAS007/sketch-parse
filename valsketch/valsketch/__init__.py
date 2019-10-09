@@ -1,5 +1,5 @@
 from flask import Flask, session, redirect, url_for, escape, render_template
-from views import views
+from .views import views
 from jinja2 import Markup
 from valsketch.models import db
 from valsketch.extensions import (

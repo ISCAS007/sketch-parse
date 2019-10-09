@@ -29,7 +29,7 @@ Options:
     --gpu0=<int>                GPU number [default: 0]
 """
 args = docopt(docstr, version='v0.1')
-print args
+print(args)
 
 
 def get_iou(pred,gt,class_):
@@ -80,7 +80,7 @@ snapPrefix= args['--snapPrefix']
 for iter in range(1,21):
     saved_state_dict = torch.load('data/snapshots/'+snapPrefix+str(iter)+'000.pth')
     if counter==0:
-	print snapPrefix
+	print(snapPrefix)
     counter+=1
     model.load_state_dict(saved_state_dict)
 
@@ -126,4 +126,4 @@ for iter in range(1,21):
             pytorch_list.append(iou_pytorch)
 	    pytorch_per_class.append(iou_pytorch)
     	class_ious.append(np.sum(np.asarray(pytorch_per_class))/len(pytorch_per_class))
-    print 'pytorch',iter, np.sum(np.asarray(pytorch_list))/len(pytorch_list),'per class', class_ious
+    print('pytorch',iter, np.sum(np.asarray(pytorch_list))/len(pytorch_list),'per class', class_ious)

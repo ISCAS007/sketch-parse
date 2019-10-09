@@ -18,13 +18,13 @@ class SigninForm(FlaskForm):
         if user is None:
             error = 'Account not present'
             self.email.errors.append(error)
-            print("ERROR: %s" % error)
+            print(("ERROR: %s" % error))
             return False
 
         if not user.verify_password(self.password.data):
             error = 'Wrong password'
             self.password.errors.append(error)
-            print("ERROR: %s" % error)
+            print(("ERROR: %s" % error))
             return False
 
         self.user = user
@@ -58,7 +58,7 @@ class SignupForm(FlaskForm):
         if user is not None:
             error = 'Email already in use'
             self.email.errors.append(error)
-            print("ERROR: %s" % error)
+            print(("ERROR: %s" % error))
             return False
 
         user = User(

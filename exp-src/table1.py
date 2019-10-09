@@ -97,11 +97,11 @@ for iter in range(1):
 
     #saved_state_dict = torch.load('/data1/ravikiran/pytorch-resnet/snapshots/DeepLab_20k_GB_fix_noCUDNN_bsize1_20k_SegnetLoss_prototype_20000.pth')
     if counter==0:
-	print prefix_A
-	print prefix_B
-	print prefix_C
-	print prefix_D
-	print prefix_E
+	print(prefix_A)
+	print(prefix_B)
+	print(prefix_C)
+	print(prefix_D)
+	print(prefix_E)
 
     counter+=1
     #saved_state_dict = torch.load('/data1/ravikiran/pytorch-resnet/MS_DeepLab_resnet_tained_sketches.pth')
@@ -190,9 +190,9 @@ for iter in range(1):
     	class_ious_D.append(np.sum(np.asarray(pytorch_per_class_D))/len(pytorch_per_class_D))
     	class_ious_E.append(np.sum(np.asarray(pytorch_per_class_E))/len(pytorch_per_class_E))
 
-    print 'B r0', np.sum(np.asarray(pytorch_list_A))/len(pytorch_list_A),'per class', class_ious_A
-    print 'BC r0 ', np.sum(np.asarray(pytorch_list_B))/len(pytorch_list_B),'per class', class_ious_B
-    print 'BP r0', np.sum(np.asarray(pytorch_list_C))/len(pytorch_list_C),'per class', class_ious_C
-    print 'BCP r0', np.sum(np.asarray(pytorch_list_D))/len(pytorch_list_D),'per class', class_ious_D
-    print 'BCP r5', np.sum(np.asarray(pytorch_list_E))/len(pytorch_list_E),'per class', class_ious_E
+    print('B r0', np.sum(np.asarray(pytorch_list_A))/len(pytorch_list_A),'per class', class_ious_A)
+    print('BC r0 ', np.sum(np.asarray(pytorch_list_B))/len(pytorch_list_B),'per class', class_ious_B)
+    print('BP r0', np.sum(np.asarray(pytorch_list_C))/len(pytorch_list_C),'per class', class_ious_C)
+    print('BCP r0', np.sum(np.asarray(pytorch_list_D))/len(pytorch_list_D),'per class', class_ious_D)
+    print('BCP r5', np.sum(np.asarray(pytorch_list_E))/len(pytorch_list_E),'per class', class_ious_E)
 

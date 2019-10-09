@@ -29,12 +29,12 @@ Options:
     --gpu0=<int>                GPU number [default: 0]
 """
 args = docopt(docstr, version='v0.1')
-print args
+print(args)
 
 
 def get_iou(pred,gt,class_):
-    print pred.shape
-    print gt.shape
+    print(pred.shape)
+    print(gt.shape)
     assert(pred.shape == gt.shape) 
     gt = gt.astype(np.float32)
     pred = pred.astype(np.float32)
@@ -82,7 +82,7 @@ snapPrefix= args['--snapPrefix']
 for iter in range(1,21):
     saved_state_dict = torch.load('snapshots/'+snapPrefix+str(iter)+'000.pth')
     if counter==0:
-	print snapPrefix
+	print(snapPrefix)
     counter+=1
     model.load_state_dict(saved_state_dict)
 
@@ -99,7 +99,7 @@ for iter in range(1,21):
         img_list = next(os.walk(gt_path))[2] 
         path = sketch_root + class_
         for i in img_list:
-            print i    
+            print(i)    
             img = cv2.imread(path+'/'+i)
             kernel = np.ones((2,2),np.uint8)
            # img = cv2.erode(img[:,:,0],kernel,iterations = 1)
@@ -129,4 +129,4 @@ for iter in range(1,21):
             pytorch_list.append(iou_pytorch)
 	    pytorch_per_class.append(iou_pytorch)
     	class_ious.append(np.sum(np.asarray(pytorch_per_class))/len(pytorch_per_class))
-    print 'pytorch',iter, np.sum(np.asarray(pytorch_list))/len(pytorch_list),'per class', class_ious
+    print('pytorch',iter, np.sum(np.asarray(pytorch_list))/len(pytorch_list),'per class', class_ious)

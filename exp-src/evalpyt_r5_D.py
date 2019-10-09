@@ -69,7 +69,7 @@ for iter in range(1,21):
     saved_state_dict = torch.load('/data1/ravikiran/pytorch-resnet-doc/snapshots/'+prefix+str(iter)+'000.pth')
     #saved_state_dict = torch.load('/data1/ravikiran/pytorch-resnet/snapshots/DeepLab_20k_GB_fix_noCUDNN_bsize1_20k_SegnetLoss_prototype_20000.pth')
     if counter==0:
-	print prefix
+	print(prefix)
     counter+=1
     #saved_state_dict = torch.load('/data1/ravikiran/pytorch-resnet/MS_DeepLab_resnet_tained_sketches.pth')
     model.load_state_dict(saved_state_dict)
@@ -112,4 +112,4 @@ for iter in range(1,21):
             pytorch_list.append(iou_pytorch)
 	    pytorch_per_class.append(iou_pytorch)
     	class_ious.append(np.sum(np.asarray(pytorch_per_class))/len(pytorch_per_class))
-    print 'pytorch',iter, np.sum(np.asarray(pytorch_list))/len(pytorch_list),'per class', class_ious
+    print('pytorch',iter, np.sum(np.asarray(pytorch_list))/len(pytorch_list),'per class', class_ious)

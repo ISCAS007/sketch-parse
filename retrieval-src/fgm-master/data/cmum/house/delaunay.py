@@ -1,4 +1,4 @@
-from __future__ import division
+
 from math import *
 from os import system
 from sets import Set
@@ -21,18 +21,23 @@ verts = verts[:N]
 triangles = Set()
 edges = dict()
 
-def dist((x1,y1),(x2,y2)):
+def dist(xxx_todo_changeme, xxx_todo_changeme1):
+  (x1,y1) = xxx_todo_changeme
+  (x2,y2) = xxx_todo_changeme1
   return sqrt((x1-x2)*(x1-x2) + (y1-y2)*(y1-y2))
 
 def det(m):
   return numpy.linalg.det(m)
 
 def dictadd(d, a):
-  if (d.has_key(a)): d[a] += 1
+  if (a in d): d[a] += 1
   else: d[a] = 1
 
 
-def centrerad((Ax, Ay), (Bx, By), (Cx, Cy)):
+def centrerad(xxx_todo_changeme2, xxx_todo_changeme3, xxx_todo_changeme4):
+  (Ax, Ay) = xxx_todo_changeme2
+  (Bx, By) = xxx_todo_changeme3
+  (Cx, Cy) = xxx_todo_changeme4
   A = (Ax, Ay)
   B = (Bx, By)
   C = (Cy, Cy)
@@ -52,7 +57,7 @@ verts.append((10000, 0))
 
 triangles.add((N, N+1, N+2))
 
-order = range(N)
+order = list(range(N))
 random.shuffle(order)
 
 for i in order:
@@ -69,7 +74,7 @@ for i in order:
       dictadd(edges, tuple(e2))
       dictadd(edges, tuple(e3))
       triangles.remove((A,B,C))
-  for (v1,v2) in edges.keys():
+  for (v1,v2) in list(edges.keys()):
     if (edges[(v1,v2)] > 1): continue
     tri = [i,v1,v2]
     tri.sort()
@@ -87,7 +92,7 @@ for (v1,v2,v3) in triangles:
 
 for m in mat:
   for m1 in m:
-    print m1,
-  print
+    print(m1, end=' ')
+  print()
 
 

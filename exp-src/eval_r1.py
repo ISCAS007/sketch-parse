@@ -30,7 +30,7 @@ Options:
 """
 
 args = docopt(docstr, version='v0.1')
-print args
+print(args)
 
 def get_iou(pred,gt):
     assert(pred.shape == gt.shape)    
@@ -69,7 +69,7 @@ snapPrefix= args['--snapPrefix']
 for iter in range(1,20):
     saved_state_dict = torch.load('data/snapshots/'+snapPrefix+str(iter)+'000.pth')
     if counter==0:
-	print snapPrefix
+	print(snapPrefix)
     counter+=1
     model.load_state_dict(saved_state_dict)
 
@@ -110,4 +110,4 @@ for iter in range(1,20):
             cv2.imwrite('test/gt.png',gt)
             pytorch_list.append(iou_pytorch)
 
-    print 'pytorch',iter, np.sum(np.asarray(pytorch_list))/len(pytorch_list)
+    print('pytorch',iter, np.sum(np.asarray(pytorch_list))/len(pytorch_list))

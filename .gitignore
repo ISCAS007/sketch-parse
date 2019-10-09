@@ -107,3 +107,4 @@ valsketch/valsketch/static/sketches_svg_backup
 valsketch/valsketch/static/svg
 valsketch/valsketch/test
 .gitconfig
+*.bak

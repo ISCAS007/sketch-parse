@@ -53,7 +53,7 @@ if not args['--segnetLoss']:
 if args['--snapPrefix'] != 'NoFile':
     snapPrefix = args['--snapPrefix'] 
 
-print snapPrefix
+print(snapPrefix)
 
 
 def find_med_frequency(img_list,max_):
@@ -83,7 +83,7 @@ def read_file(path_to_file):
     return img_list
 
 def chunker(seq, size):
-    return (seq[pos:pos+size] for pos in xrange(0,len(seq), size))
+    return (seq[pos:pos+size] for pos in range(0,len(seq), size))
 
 def resize_label_batch(label, size):
     label_resized = np.zeros((size,size,1,label.shape[3]))
@@ -221,7 +221,7 @@ model = getattr(deeplab_resnet_sketchParse_r1,'Res_Deeplab')()
 saved_state_dict = torch.load('MS_DeepLab_resnet_pretained_VOC.pth')
 old_model_dict = model.state_dict()
 for i in old_model_dict:
-    if (i in old_model_dict.keys()) and (i not in saved_state_dict.keys()):
+    if (i in list(old_model_dict.keys())) and (i not in list(saved_state_dict.keys())):
         saved_state_dict[i] = old_model_dict[i]
 
 model.load_state_dict(saved_state_dict)
@@ -255,7 +255,7 @@ optimizer.zero_grad()
 data_gen = chunker(data_list, batch_size)
 
 for iter in range(maxIter+1):
-    chunk = data_gen.next()
+    chunk = next(data_gen)
     images, label, pose = get_data_from_chunk_v2(chunk)
 
     images = Variable(images).cuda(gpu0)
@@ -271,18 +271,18 @@ for iter in range(maxIter+1):
     (loss/iterSize).backward()
 
     if iter %1 == 0:
-        print 'iter = ',iter, 'of',maxIter,'completed, loss = ', loss.data
+        print('iter = ',iter, 'of',maxIter,'completed, loss = ', loss.data)
 
     if iter %iterSize  == 0:
         optimizer.step()
         lr_ = lr_poly(base_lr,iter,maxIter,0.9)
-        print '(poly lr policy) learning rate',lr_
+        print('(poly lr policy) learning rate',lr_)
         optimizer = optim.SGD([{'params': get_1x_lr_params_NOscale(model), 'lr': lr_ }, {'params': get_10x_lr_params(model), 'lr': 10*lr_} ], lr = lr_, momentum = 0.9)
         optimizer.zero_grad()
 
 
     if iter % 1000 == 0 and iter !=0:
-        print 'taking snapshot ...'
+        print('taking snapshot ...')
         snapPath = 'data/snapshots/DeepLab_RN_auxPose_' + snapPrefix +str(iter)+'.pth'
         torch.save(model.state_dict(), snapPath)
 
