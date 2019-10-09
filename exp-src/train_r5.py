@@ -89,8 +89,8 @@ def get_data_from_chunk(chunk):
     gt = np.zeros((321,321,1,len(chunk)))
     poses = np.zeros((1,len(chunk)))
     for i,piece in enumerate(chunk):
-        images[:,:,:,i] = cv2.imread(img_path+piece+'.png')
-        gt[:,:,0,i] = cv2.imread(gt_path+piece+'.png')[:,:,0]
+        images[:,:,:,i] = cv2.imread(os.path.join(img_path,piece+'.png'))
+        gt[:,:,0,i] = cv2.imread(os.path.join(gt_path,piece+'.png'))[:,:,0]
         imId, aug = piece.split('(')
         pose = int(HCpose[imId])
         # Account for flip augmentations
@@ -114,7 +114,12 @@ def find_med_frequency(img_list,max_):
     for i in range(max_):
         dict_store[i] = []
     for i,piece in enumerate(img_list):
-        gt = cv2.imread(gt_path+piece+'.png')[:,:,0]
+        gt_img_path=os.path.join(gt_path,piece+'.png')
+        if os.path.exists(gt_img_path):
+            gt = cv2.imread(gt_img_path)[:,:,0]
+        else:
+            print('bad image path',gt_img_path)
+
         for i in range(max_):
             dict_store[i].append(np.count_nonzero(gt == i))
     global_stats_sum = np.zeros((max_,))
@@ -304,7 +309,12 @@ for i in list(old_dict.keys()):
             i_split_copy = i_split
             i_split_copy[1] = i_split_copy[1][:-5]
             i_split_copy[2] = str(int(i_split_copy[2])+2)
-            old_dict[i] = saved_state_dict['.'.join(i_split_copy)]
+
+            saved_key='.'.join(i_split_copy)
+            if saved_key in saved_state_dict.keys():
+                old_dict[i] = saved_state_dict[saved_key]
+            else:
+                print('unknown key {} and target key {}'.format(saved_key,i))
 
         if (i_split[1][:] == 'layer5_r0' or i_split[1][:] == 'layer5_r1' or  i_split[1][:] == 'layer5_r3') and i_split[:-1]=='weight':
             i_split_copy = i_split
